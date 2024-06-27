@@ -250,3 +250,18 @@ You can use the script in two ways: via a YAML configuration file or command-lin
     ```
 
 This README provides a comprehensive guide on how to use the `generic_namespace_annotator.sh` script with both YAML configuration and CLI options, including validation of expected annotation values.
+
+
+Certainly! Here’s the updated Slack status update:
+
+---
+
+**Status Update: Enhancement to Namespace Annotation Script**
+
+- Enhanced `generic_namespace_annotator.sh` to support multiple key-value pair annotations for Kubernetes namespaces.
+- Added validation for specific annotation keys to ensure only valid values are applied (e.g., `linkerd.io/inject` can only be `enabled` or `disabled`).
+- Supports configuring multiple annotations required for Linkerd in addition to the default `enabled` or `disabled`.
+- Continued with the implementation to ensure compatibility and efficiency in our Kubernetes deployments.
+- Started on the GKE upgrade automation scripts to streamline and automate our cluster upgrade process.
+
+---
