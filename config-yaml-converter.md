@@ -96,3 +96,44 @@ namespaces:
 ```
 
 This new format will be compatible with the enhanced `generic_namespace_annotator.sh` script.
+
+
+
+#!/bin/bash
+
+# Function to display usage
+usage() {
+  echo "Usage: $0 <input_config_file> <output_config_file>"
+  echo "  <input_config_file>  Path to the existing YAML configuration file"
+  echo "  <output_config_file> Path to the new YAML configuration file"
+  exit 1
+}
+
+```
+# Validate input arguments
+if [ "$#" -ne 2 ]; then
+  usage
+fi
+
+INPUT_FILE=$1
+OUTPUT_FILE=$2
+
+# Check if yq is installed
+if ! command -v yq &> /dev/null; then
+  echo "yq is not installed. Please install it and try again."
+  exit 1
+fi
+
+# Convert the existing YAML format to the new format
+yq eval '. as $item ireduce({}) as $tmp (
+  $tmp;
+  .verbose = $item.verbose |
+  .dryRun = $item.dryRun |
+  .namespaces = $item.namespaces | map({
+    name: .name,
+    annotations: {"linkerd.io/inject": .annotation}
+  })
+)' "$INPUT_FILE" > "$OUTPUT_FILE"
+
+echo "Conversion complete. New configuration saved to $OUTPUT_FILE"
+```
