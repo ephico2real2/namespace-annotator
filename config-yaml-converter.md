@@ -97,7 +97,7 @@ namespaces:
 
 This new format will be compatible with the enhanced `generic_namespace_annotator.sh` script.
 
-
+```
 
 #!/bin/bash
 
@@ -109,7 +109,6 @@ usage() {
   exit 1
 }
 
-```
 # Validate input arguments
 if [ "$#" -ne 2 ]; then
   usage
