@@ -98,7 +98,6 @@ namespaces:
 This new format will be compatible with the enhanced `generic_namespace_annotator.sh` script.
 
 ```
-
 #!/bin/bash
 
 # Function to display usage
@@ -124,15 +123,17 @@ if ! command -v yq &> /dev/null; then
 fi
 
 # Convert the existing YAML format to the new format
-yq eval '. as $item ireduce({}) as $tmp (
-  $tmp;
-  .verbose = $item.verbose |
-  .dryRun = $item.dryRun |
-  .namespaces = $item.namespaces | map({
+yq eval '{
+  verbose: .verbose,
+  dryRun: .dryRun,
+  namespaces: .namespaces | map({
     name: .name,
-    annotations: {"linkerd.io/inject": .annotation}
+    annotations: {
+      "linkerd.io/inject": .annotation
+    }
   })
-)' "$INPUT_FILE" > "$OUTPUT_FILE"
+}' "$INPUT_FILE" > "$OUTPUT_FILE"
 
 echo "Conversion complete. New configuration saved to $OUTPUT_FILE"
+
 ```
