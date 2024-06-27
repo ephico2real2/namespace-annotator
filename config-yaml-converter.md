@@ -4,7 +4,6 @@ Here is the `convert_yaml.sh` script to convert the existing YAML format to the 
 
 ```bash
 #!/bin/bash
-#!/bin/bash
 
 # Function to display usage
 usage() {
